@@ -24,5 +24,66 @@ public class SistemaDomotico {
         return true;
     }
 
-    
+    public LampadinaIntelligente cerca(String nome){
+        for (int i = 0; i < n_lamp; i++) {
+            if (lampadine[i].getNome().equals(nome)) return lampadine[i];
+        }
+        return null;
+    }
+
+
+    public int getNumeroLampadine() {
+        return n_lamp;
+    }
+
+
+    public boolean rimuovi(String nome) {
+        for (int i = 0; i < n_lamp; i++) {
+            if (lampadine[i].getNome().equals(nome)) {
+                for (int j = i; j < n_lamp - 1; j++) {
+                    lampadine[j] = lampadine[j + 1];
+                }
+                lampadine[n_lamp - 1] = null;
+                n_lamp--;
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public void accendiTutte() {
+        for (int i = 0; i < n_lamp; i++) {
+            lampadine[i].setAcceso(true);
+        }
+    }
+
+
+    public void spegniTutte() {
+        for (int i = 0; i < n_lamp; i++) {
+            lampadine[i].setAcceso(false);
+        }
+    }
+
+
+    public double calcolaPotenzaAttuale() {
+        double potenzaTotale = 0;
+        for (int i = 0; i < n_lamp; i++) {
+            if (lampadine[i].getAcceso()) {
+                potenzaTotale += lampadine[i].getPotenza() * (lampadine[i].getLuminosita() / 100.0);
+            }
+        }
+        return potenzaTotale;
+    }
+
+    @Override
+    public String toString() {
+        String info = "Sistema Domotico con " + n_lamp + " lampadine (max " + lampadine.length + ")\n";
+        for (int i = 0; i < n_lamp; i++) {
+            info += lampadine[i].toString() + "\n";
+        }
+        info += "Potenza totale: " + calcolaPotenzaAttuale();
+        return info;
+    }
+
 }
