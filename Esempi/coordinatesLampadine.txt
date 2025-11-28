@@ -1,0 +1,21 @@
+379, 118 //Nera
+377, 408 //Nera
+523, 136 //Nera
+442, 234 //Nera
+442, 395 //Nera
+643, 210 //Nera
+715, 116 //Nera
+737, 397 //Nera
+931, 177 //Nera
+
+510, 314 //Rossa
+831, 127 //Rossa
+927, 336 //Rossa
+
+477, 671 //Gialla
+638, 496 //Gialla
+909, 496 //Gialla
+1206, 354 //Gialla
+1206, 98 //Gialla
+1079, 714 //Gialla
+1458, 378 //Gialla
