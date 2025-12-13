@@ -76,7 +76,7 @@ public class SistemaDomotico implements Serializable {
         double potenzaTotale = 0;
         for (int i = 0; i < n_lamp; i++) {
             if (lampadine[i].getAcceso()) {
-                potenzaTotale += lampadine[i].getPotenza() * (lampadine[i].getLuminosita() / 100.0);
+                potenzaTotale += lampadine[i].getPotenza() * (lampadine[i].getPotenza() / 100.0);
             }
         }
         return potenzaTotale;

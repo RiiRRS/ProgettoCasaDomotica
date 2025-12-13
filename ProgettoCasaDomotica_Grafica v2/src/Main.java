@@ -1,5 +1,7 @@
+import graphics.Canvas;
 import graphics.Picture;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import graphics.*;
@@ -31,7 +33,7 @@ public class Main {
             boolean giàPresente = false;
             for (int j = 0; j < stanze.size(); j++) {
                 if (stanze.get(j).equals(s)) {
-                    giàPresente = true;
+                    giàPresente =  true;
                 }
             }
 
@@ -188,8 +190,9 @@ public class Main {
                 case 4: // rimuovi
                     System.out.print("Nome da rimuovere: ");
                     String nomeR = in.nextLine();
-
+                    LampadinaIntelligente darimuovere=sistema.cerca(nomeR);
                     if (sistema.rimuovi(nomeR)) {
+                        darimuovere.NascondiGrafica();
                         System.out.println("Rimossa.");
                     } else {
                         System.out.println("Lampadina non trovata.");

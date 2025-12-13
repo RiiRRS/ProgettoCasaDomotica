@@ -1,4 +1,6 @@
 import java.io.Serializable;
+import java.util.ArrayList;
+
 import graphics.*;
 
 public class LampadinaIntelligente implements Serializable {
@@ -8,6 +10,7 @@ public class LampadinaIntelligente implements Serializable {
     private String colore;
     private String nome;
     private boolean acceso;
+    private ArrayList<Ellipse> glow;
 
     private int x;
     private int y;
@@ -41,17 +44,24 @@ public class LampadinaIntelligente implements Serializable {
 
         int r = Math.max(10, potenza / 2);
 
+        glow = new ArrayList<>();
+
         cerchio = new Ellipse(x - r/2, y - r/2, r, r);
         cerchio.setColor(Color.GRAY);
-        cerchio.draw();
+        cerchio.fill();
     }
-
 
     public void aggiornaGrafica() {
         if (cerchio == null) return;
 
-        Color c;
+        if (glow != null) {
+            for (Ellipse e : glow) {
+                Canvas.getInstance().hide(e);
+            }
+            glow.clear();
+        }
 
+        Color c;
         switch (colore.toLowerCase()) {
             case "rosso":  c = Color.RED; break;
             case "verde":  c = Color.GREEN; break;
@@ -64,25 +74,41 @@ public class LampadinaIntelligente implements Serializable {
 
         int r = Math.max(10, potenza / 2);
 
-        int glowLayers = luminosita / 20;
+        //glow
+        if (acceso) {
+            int layers = (luminosita * potenza) / 3000;
+            layers = Math.min(layers, 6);
 
-        for (int i = 1; i <= glowLayers; i++) {
-            Ellipse glow = new Ellipse(
-                    x - (r/2 + i*3),
-                    y - (r/2 + i*3),
-                    r + i*6,
-                    r + i*6
-            );
-
-            glow.setColor(c);
-            glow.draw();
+            for (int i = 1; i <= layers; i++) {
+                Ellipse g = new Ellipse(
+                        x - (r/2 + i*4),
+                        y - (r/2 + i*4),
+                        r + i*8,
+                        r + i*8
+                );
+                g.setColor(c);
+                g.draw();
+                glow.add(g);
+            }
         }
 
-        cerchio = new Ellipse(x - r/2, y - r/2, r, r);
         cerchio.setColor(c);
         cerchio.fill();
     }
 
+    public void NascondiGrafica() {
+
+        if (cerchio != null) {
+            Canvas.getInstance().hide(cerchio);
+        }
+
+        if (glow != null) {
+            for (Ellipse e : glow) {
+                Canvas.getInstance().hide(e);
+            }
+            glow.clear();
+        }
+    }
 
     public int getPotenza(){
         return this.potenza;
